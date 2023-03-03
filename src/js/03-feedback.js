@@ -6,15 +6,6 @@ const messageTextarea = document.querySelector('textarea[name="message"]');
 
 let userInputSubmittedData = { email: '', message: '' };
 
-const localStorageSavedFeedback = JSON.parse(
-  localStorage.getItem('feedback-form-state')
-);
-
-if (localStorageSavedFeedback.email || localStorageSavedFeedback.message) {
-  emailInput.value = localStorageSavedFeedback.email;
-  messageTextarea.value = localStorageSavedFeedback.message;
-}
-
 function handleInputs() {
   localStorage.setItem(
     'feedback-form-state',
@@ -42,6 +33,20 @@ function handleSubmit(event) {
   );
 
   event.currentTarget.reset();
+}
+
+if (!localStorage.getItem('feedback-form-state')) {
+  localStorage.setItem(
+    'feedback-form-state',
+    JSON.stringify(userInputSubmittedData)
+  );
+}
+let localStorageSavedFeedback = JSON.parse(
+  localStorage.getItem('feedback-form-state')
+);
+if (localStorageSavedFeedback.email || localStorageSavedFeedback.message) {
+  emailInput.value = localStorageSavedFeedback.email;
+  messageTextarea.value = localStorageSavedFeedback.message;
 }
 
 form.addEventListener('input', throttle(handleInputs, 1000));
