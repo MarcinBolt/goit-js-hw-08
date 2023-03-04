@@ -49,5 +49,5 @@ if (localStorageSavedFeedback.email || localStorageSavedFeedback.message) {
   messageTextarea.value = localStorageSavedFeedback.message;
 }
 
-form.addEventListener('input', throttle(handleInputs, 1000));
+form.addEventListener('input', throttle(handleInputs, 500));
 form.addEventListener('submit', handleSubmit);
